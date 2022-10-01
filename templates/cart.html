@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block body %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+  <script type="text/javascript">
+        function removecart(id)
+        {
+            window.location="/removecart/"+id
+        }
+        function viewproduct(id)
+        {
+            window.location="/product/"+id
+        }
+        </script>
+  {% if wish_list_items %}
+  {% for item in wish_list_items %}
+    <tr>
+      <th scope="row">{{ item.product_id.id }}</th>
+        <td><img src="{{ item.product_id.image.url }}" width="150px" height="100px" onclick="viewproduct({{ item.product_id.id }})"></td>
+      <td onclick="viewproduct({{ item.product_id.id }})">{{ item.product_id.name }}</td>
+      <td>Rs. {{ item.product_id.price }}</td>
+        <td>{{ item.qty }}</td>
+        <td><button class="btn btn-danger" onclick="removecart({{ item.id }})">Remove</button></td>
+    </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+    <div class="form-control" align="right" style="padding-right: 60px">
+
+        Total : {{ total }}<p style="padding-right: 20px; display: inline"></p>
+    <button class="btn btn-success"><span class="fa fa-automobile"></span> Checkout</button>
+    </div>
+{% endblock %}

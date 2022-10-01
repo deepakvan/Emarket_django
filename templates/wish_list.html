@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block body %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  <script type="text/javascript">
+        function removewish(id)
+        {
+            window.location="/removewish/"+id
+        }
+        function viewproduct(id)
+        {
+            window.location="/product/"+id
+        }
+        </script>
+  {% if wish_list_items %}
+  {% for item in wish_list_items %}
+    <tr>
+      <th scope="row">{{ item.product_id.id }}</th>
+        <td><img src="{{ item.product_id.image.url }}" width="150px" height="100px" onclick="viewproduct({{ item.product_id.id }})"></td>
+      <td onclick="viewproduct({{ item.product_id.id }})">{{ item.product_id.name }}</td>
+      <td>Rs. {{ item.product_id.price }}</td>
+        <td><button class="btn btn-danger" onclick="removewish({{ item.id }})">Remove</button></td>
+    </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+{% endblock %}
